@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 cd /
-cd home/khadas/SensorAndDatabase/
-sudo python3 main.py
+cd /home/khadas/SensorAndDatabase/
+python3 main.py
 cd /

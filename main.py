@@ -1,3 +1,5 @@
+#!./myEnv/bin/python3.10
+
 import pyodbc
 import wiringpi as GPIO
 from time import sleep
@@ -5,11 +7,11 @@ from time import sleep
 """
 SERVER SETUP
 """
-dsn = 'myserverdatasource'
+dsn = 'myserverdatasource0'
 user = 'iot-device'
 password = '123456789'
 database = 'dserp200'
-
+Name = 'MCAS3'
 con_string = 'DSN=%s;UID=%s;PWD=%s;DATABASE=%s;'%(dsn,user,password,database)
 
 sleep(5)        #important for startup routine to wait for ODBC service to start first
@@ -48,13 +50,13 @@ while True:
     DC_state = GPIO.digitalRead(DC_pin)
     if not AC_state == pAC_state:
         print(f'AC_state {AC_state}')
-        cursor.execute('UPDATE sysdiagrams SET princial_id ='+str(AC_state)+'where name =\'MCAS1\'')
+        cursor.execute('UPDATE sysdiagrams SET principal_id ='+str(AC_state)+'where name =\'MCAS1\'')
         cnxn.commit()
         pAC_state = AC_state
     if not DC_state == pDC_state:
         print(f'                                    DC_state {DC_state}')
         cursor.execute('UPDATE sysdiagrams SET diagram_id ='+str(DC_state)+'where name =\'MCAS1\'')
         cnxn.commit()
-        pAC_state = DC_state
+        pDC_state = DC_state
     sleep(0.5)
         
